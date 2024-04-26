@@ -1,0 +1,17 @@
+{
+  "profiles": {
+    "SecureMultiTenantApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7223"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 33640,
+      "useSSL": false,
+      "environmentVariables": {
+        "MSI_ENDPOINT": "http://host.docker.internal:5616/api/Msi/df68aa03-48eb-4b09-9f3e-8aecc58e207c/forward"
+      }
+    }
+  }
+}
