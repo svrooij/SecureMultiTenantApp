@@ -1,6 +1,4 @@
 using Azure.Core;
-using Azure.Identity;
-using Azure.Security.KeyVault.Certificates;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -9,7 +7,6 @@ using Microsoft.Identity.Client;
 using SecureMultiTenantApp.Extensions;
 using Smartersoft.Identity.Client.Assertion;
 using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SecureMultiTenantApp.Demo2
 {
