@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using SecureMultiTenantApp;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureFunctionsWebApplication()
     .ConfigureServices((ctx, services) =>
     {
         services.AddApplicationInsightsTelemetryWorkerService();
@@ -18,18 +18,22 @@ var host = new HostBuilder()
         // this will require `MySettings__ClientId` and `MySettings__TenantId` to be set
         services.Configure<StrongConfiguration>(ctx.Configuration.GetSection("MySettings"));
         // This will validate the configuration on startup, based on the DataAnnotations
-        services.AddOptionsWithValidateOnStart<StrongConfiguration>();
+        //services.AddOptionsWithValidateOnStart<StrongConfiguration>();
 
-        // Register token credentials based on the environment
-        if (ctx.HostingEnvironment.IsDevelopment())
-        {
-            // DefaultAzureCredential will try several authentication methods until it finds one that works
-            services.AddSingleton<TokenCredential, DefaultAzureCredential>();
-        } else
-        {
-            // ManagedIdentityCredential will use the managed identity of the app service
-            services.AddSingleton<TokenCredential, ManagedIdentityCredential>();
-        }
+        
+        // ManagedIdentityCredential will use the managed identity of the app service
+        services.AddSingleton<TokenCredential, ManagedIdentityCredential>();
+
+        // Or register token credentials based on the environment
+        //if (ctx.HostingEnvironment.IsDevelopment())
+        //{
+        //    // DefaultAzureCredential will try several authentication methods until it finds one that works
+        //    services.AddSingleton<TokenCredential, DefaultAzureCredential>();
+        //} else
+        //{
+        //    // ManagedIdentityCredential will use the managed identity of the app service
+        //    services.AddSingleton<TokenCredential, ManagedIdentityCredential>();
+        //}
     })
     .Build();
 
